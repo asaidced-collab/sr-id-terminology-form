@@ -69,6 +69,11 @@
       font-weight: 700;
     }
 
+    .term-respondent {
+      color: #8e24aa;
+      font-weight: 700;
+    }
+
     .step {
       display: none;
     }
@@ -278,15 +283,30 @@
     <h2>2. توضيح معاني كلماتك</h2>
 
     <div class="field-group">
-      <label>في رأيك، ما علاقة هذه الكلمة «<span id="selfWord1Label_2" class="muted"></span>» باللفظ المفحوص؟</label>
+      <label>
+        في رأيك، ما علاقة هذه الكلمة
+        «<span id="selfWord1Label_2" class="term-respondent"></span>»
+        بالتعبير
+        «<span id="selfTermLabel2_1" class="term-highlight"></span>»؟
+      </label>
       <textarea id="selfExpl1"></textarea>
     </div>
     <div class="field-group">
-      <label>في رأيك، ما علاقة هذه الكلمة «<span id="selfWord2Label_2" class="muted"></span>» باللفظ المفحوص؟</label>
+      <label>
+        في رأيك، ما علاقة هذه الكلمة
+        «<span id="selfWord2Label_2" class="term-respondent"></span>»
+        بالتعبير
+        «<span id="selfTermLabel2_2" class="term-highlight"></span>»؟
+      </label>
       <textarea id="selfExpl2"></textarea>
     </div>
     <div class="field-group">
-      <label>في رأيك، ما علاقة هذه الكلمة «<span id="selfWord3Label_2" class="muted"></span>» باللفظ المفحوص؟</label>
+      <label>
+        في رأيك، ما علاقة هذه الكلمة
+        «<span id="selfWord3Label_2" class="term-respondent"></span>»
+        بالتعبير
+        «<span id="selfTermLabel2_3" class="term-highlight"></span>»؟
+      </label>
       <textarea id="selfExpl3"></textarea>
     </div>
     <div id="error-step-2" class="error"></div>
@@ -341,8 +361,9 @@
   <div id="step-4" class="step">
     <h2>4. الشعور نحو كلماتك</h2>
     <p>
-      أمام كل كلمة/عبارة ذكرتَها، رجاءً <strong>حدّد/ي نوع الشعور الذي تثيره عندك</strong>
-      بوضع علامة (X) في الخانة المناسبة.
+      أمام كل كلمة/عبارة ذكرتَها، رجاءً
+      <strong>حدّد/ي نوع الشعور الذي تثيره عندك</strong>
+      باختيار الخانة المناسبة.
       ليس هناك شعور "صحيح" وآخر "خاطئ"؛ الأمر شخصي تمامًا.
     </p>
     <div class="table-wrapper">
@@ -382,7 +403,7 @@
 
   <!-- STEP 5: كلمات معظم الناس (Others - words) -->
   <div id="step-5" class="step">
-    <h2>5. تمثّلات «معظم الناس» في رأيك</h2>
+    <h2>5. تمثلات معظم الناس</h2>
     <p>
       في رأيك، ما الكلمات/العبارات الثلاث التي قد يستعملها معظم الناس مباشرة عند سماع التعبير:
       «<span id="termOthers1" class="term-highlight"></span>»؟
@@ -407,15 +428,30 @@
     <h2>6. ماذا يُتوقَّع أن يقصد معظم الناس؟</h2>
 
     <div class="field-group">
-      <label>في رأيك، ما علاقة هذه الكلمة «<span id="othersWord1Label_6" class="muted"></span>» باللفظ المفحوص؟</label>
+      <label>
+        في رأيك، ما علاقة هذه الكلمة
+        «<span id="othersWord1Label_6" class="term-respondent"></span>»
+        بالتعبير
+        «<span id="othersTermLabel6_1" class="term-highlight"></span>»؟
+      </label>
       <textarea id="othersExpl1"></textarea>
     </div>
     <div class="field-group">
-      <label>في رأيك، ما علاقة هذه الكلمة «<span id="othersWord2Label_6" class="muted"></span>» باللفظ المفحوص؟</label>
+      <label>
+        في رأيك، ما علاقة هذه الكلمة
+        «<span id="othersWord2Label_6" class="term-respondent"></span>»
+        بالتعبير
+        «<span id="othersTermLabel6_2" class="term-highlight"></span>»؟
+      </label>
       <textarea id="othersExpl2"></textarea>
     </div>
     <div class="field-group">
-      <label>في رأيك، ما علاقة هذه الكلمة «<span id="othersWord3Label_6" class="muted"></span>» باللفظ المفحوص؟</label>
+      <label>
+        في رأيك، ما علاقة هذه الكلمة
+        «<span id="othersWord3Label_6" class="term-respondent"></span>»
+        بالتعبير
+        «<span id="othersTermLabel6_3" class="term-highlight"></span>»؟
+      </label>
       <textarea id="othersExpl3"></textarea>
     </div>
     <div id="error-step-6" class="error"></div>
@@ -646,8 +682,6 @@
   <div id="step-11" class="step">
     <p>
       9. في حياتك اليومية، أو خلال دراستك الجامعية، إلى أي حدّ تسمع أو تستعمل التعابير الآتية؟
-      ضع/ي علامة (X) في الخانة المناسبة لكل تعبير، مستعملًا/ة السُّلَّم التالي:
-      1 نادرًا جدًا؛ 2 نادرًا؛ 3 أحيانًا؛ 4 غالبًا؛ 5 كثيرًا جدًا.
     </p>
     <div class="table-wrapper">
       <table>
@@ -840,6 +874,20 @@
       if (t2) t2.textContent = conditionTerm;
       if (tO1) tO1.textContent = conditionTerm;
       if (tSD) tSD.textContent = conditionTerm;
+
+      const st21 = document.getElementById('selfTermLabel2_1');
+      const st22 = document.getElementById('selfTermLabel2_2');
+      const st23 = document.getElementById('selfTermLabel2_3');
+      if (st21) st21.textContent = conditionTerm;
+      if (st22) st22.textContent = conditionTerm;
+      if (st23) st23.textContent = conditionTerm;
+
+      const ot61 = document.getElementById('othersTermLabel6_1');
+      const ot62 = document.getElementById('othersTermLabel6_2');
+      const ot63 = document.getElementById('othersTermLabel6_3');
+      if (ot61) ot61.textContent = conditionTerm;
+      if (ot62) ot62.textContent = conditionTerm;
+      if (ot63) ot63.textContent = conditionTerm;
     }
 
     if (step === 9) {
@@ -1099,7 +1147,7 @@
     for (let i = 0; i < 3; i++) {
       const ei = expls[i];
       if (isEmpty(ei)) {
-        setError(2, 'رجاءً اكتب/ي جملة قصيرة تشرح علاقة كل كلمة باللفظ المفحوص؛ لا تترك أي خانة فارغة.');
+        setError(2, 'رجاءً اكتب/ي جملة قصيرة تشرح علاقة كل كلمة بالتعبير المستعمَل؛ لا تترك أي خانة فارغة.');
         return false;
       }
       if (containsDigits(ei)) {
@@ -1201,7 +1249,7 @@
     for (let i = 0; i < 3; i++) {
       const ei = expls[i];
       if (isEmpty(ei)) {
-        setError(6, 'رجاءً اكتب/ي جملة قصيرة تشرح علاقة كل كلمة متوقَّعة باللفظ المفحوص؛ لا تترك أي خانة فارغة.');
+        setError(6, 'رجاءً اكتب/ي جملة قصيرة تشرح علاقة كل كلمة متوقَّعة بالتعبير المستعمَل؛ لا تترك أي خانة فارغة.');
         return false;
       }
       if (containsDigits(ei)) {
