@@ -1406,6 +1406,7 @@ function submitForm() {
   const data = {};
   data.resp_id = 'R' + Date.now() + '_' + Math.floor(Math.random() * 1000000);
   data.condition_label = conditionLabel;
+data.condition_term = conditionTerm;   // السطر الجديد
 
   const sw1 = document.getElementById('selfWord1').value.trim();
   const sw2 = document.getElementById('selfWord2').value.trim();
@@ -1517,3 +1518,4 @@ function submitForm() {
 </script>
 </body>
 </html>
+
