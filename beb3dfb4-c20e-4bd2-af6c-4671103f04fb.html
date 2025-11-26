@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>استبانة تصوّرات الطلبة</title>
+  <style>
+    :root {
+      --primary: #1976d2;
+      --secondary: #e0e0e0;
+      --text-main: #222;
+      --text-muted: #666;
+      --error: #b71c1c;
+      --bg-page: #f5f5f5;
+      --bg-card: #ffffff;
+      --term-blue: #1565c0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background-color: var(--bg-page);
+      margin: 0;
+      padding: 0;
+      direction: rtl;
+      color: var(--text-main);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 16px auto 80px auto;
+      background: var(--bg-card);
+      padding: 16px 14px 20px 14px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        margin-top: 24px;
+        padding: 24px 28px 28px 28px;
+      }
+    }
+
+    .main-title {
+      margin-top: 0;
+      margin-bottom: 16px;
+      font-size: 22px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    #sectionHeader {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 18px;
+      font-weight: 700;
+      text-align: right;
+      display: none;
+    }
+
+    .term-highlight {
+      color: var(--term-blue);
+      font-weight: 700;
+    }
+
+    .step {
+      display: none;
+    }
+
+    .step.active {
+      display: block;
+    }
+
+    .nav-buttons {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255,255,255,0.97);
+      border-top: 1px solid #ddd;
+      padding: 8px 12px;
+      display: none;
+      justify-content: space-between;
+      gap: 8px;
+      z-index: 100;
+    }
+
+    @media (min-width: 768px) {
+      .nav-buttons {
+        max-width: 900px;
+        margin: 0 auto;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+
+    button {
+      padding: 10px 18px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
+      min-width: 90px;
+      touch-action: manipulation;
+    }
+
+    button.primary {
+      background-color: var(--primary);
+      color: #ffffff;
+    }
+
+    button.secondary {
+      background-color: var(--secondary);
+      color: #333333;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+
+    .error {
+      color: var(--error);
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .field-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+
+    textarea {
+      min-height: 70px;
+      resize: vertical;
+    }
+
+    .inline-options {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 6px;
+    }
+
+    .vertical-options {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: flex-start;
+      margin-top: 6px;
+    }
+
+    .inline-options label,
+    .vertical-options label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 400;
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+    }
+
+    .small {
+      font-size: 13px;
+      color: #555;
+    }
+
+    .muted {
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      margin-top: 8px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 520px;
+      font-size: 14px;
+    }
+
+    table th, table td {
+      border: 1px solid #ccc;
+      padding: 6px 8px;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      table {
+        font-size: 13px;
+      }
+    }
+
+    p {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2 id="sectionHeader"></h2>
+
+  <!-- STEP 0: معلومات الدراسة + الموافقة -->
+  <div id="step-0" class="step active">
+    <h1 class="main-title">تصوّرات الطلبة عن بعض الأوضاع الاجتماعية والتربوية</h1>
+
+    <p>
+      تهدف هذه الاستبانة إلى التعرّف على الطريقة التي يبني بها الطلبة الجامعيون تصوّراتهم وتمثّلاتهم عن بعض الأوضاع الاجتماعية والتربوية التي يمكن أن يواجهونها في حياتهم المهنية مستقبلًا، خصوصًا ما يرتبط بوجود فئات مختلفة من الأشخاص والتلاميذ داخل المجتمع والمدرسة.
+    </p>
+    <p>
+      لا تهدف هذه الدراسة إلى تقييمك أو الحكم على آرائك، بل إلى فهم الكلمات والأفكار والمشاعر التي تستحضرها بعض التعابير المتداولة في الخطاب التربوي والاجتماعي.
+    </p>
+    <p>
+      ليست هناك إجابات صحيحة أو خاطئة؛ المهم هو ما تفكّر أنت فيه أولًا وبشكل تلقائي.
+      يُفضَّل أن تجيب بصورة طبيعية، دون بحث طويل عن “أفضل” جواب، مع احترام التعليمات في كل فقرة.
+    </p>
+    <p>
+      جميع الأجوبة سرية ولن تُستعمل إلا لأغراض البحث العلمي.
+    </p>
+    <p>
+      مشاركتك في هذه الدراسة طوعية تمامًا، ويمكنك التوقّف عن الإجابة في أي وقت دون أي أثر على وضعك الدراسي.
+      يستغرق ملء هذه الاستبانة حوالي 15 إلى 20 دقيقة.
+    </p>
+    <p><strong>بعد قراءتك لهذه المعلومات، هل توافق/ين على المشاركة في هذه الدراسة؟</strong></p>
+    <div class="inline-options">
+      <button class="primary" onclick="handleConsent(true)">نعم، أوافق على المشاركة</button>
+      <button class="secondary" onclick="handleConsent(false)">لا، لا أوافق على المشاركة</button>
+    </div>
+  </div>
+
+  <!-- STEP 1: كلمات المستجيب (Self - words) -->
+  <div id="step-1" class="step">
+    <h2>1. تمثّلاتك الشخصية</h2>
+    <p>
+      عندما تسمع/ين التعبير الآتي:
+      «<span id="termSelf1" class="term-highlight"></span>»
+      ما أوّل ثلاث كلمات أو عبارات تتبادر إلى ذهنك مباشرة؟
+    </p>
+    <p class="small">رجاءً اكتب/ي كلمات أو عبارات قصيرة.</p>
+    <div class="field-group">
+      <label>1.</label>
+      <input type="text" id="selfWord1" />
+    </div>
+    <div class="field-group">
+      <label>2.</label>
+      <input type="text" id="selfWord2" />
+    </div>
+    <div class="field-group">
+      <label>3.</label>
+      <input type="text" id="selfWord3" />
+    </div>
+    <div id="error-step-1" class="error"></div>
+  </div>
+
+  <!-- STEP 2: معاني المستجيب (Self - meanings) -->
+  <div id="step-2" class="step">
+    <h2>2. توضيح معاني كلماتك</h2>
+    <p>
+      تجنّبًا لسوء الفهم، رجاءً <strong>اكتب/ي جملة قصيرة توضّح فيها لماذا ربطت</strong>
+      كل كلمة/عبارة من الكلمات/العبارات الثلاث السابقة بلفظ
+      «<span id="termSelf2" class="term-highlight"></span>».
+    </p>
+    <p class="small">يمكنك استعمال جمل قصيرة لا تتجاوز 8 كلمات لكل خانة.</p>
+
+    <div class="field-group">
+      <label>الكلمة/العبارة الأولى: <span id="selfWord1Label_2" class="muted"></span></label>
+      <textarea id="selfExpl1"></textarea>
+    </div>
+    <div class="field-group">
+      <label>الكلمة/العبارة الثانية: <span id="selfWord2Label_2" class="muted"></span></label>
+      <textarea id="selfExpl2"></textarea>
+    </div>
+    <div class="field-group">
+      <label>الكلمة/العبارة الثالثة: <span id="selfWord3Label_2" class="muted"></span></label>
+      <textarea id="selfExpl3"></textarea>
+    </div>
+    <div id="error-step-2" class="error"></div>
+  </div>
+
+  <!-- STEP 3: ترتيب الأهمية للمستجيب (Self - ranks) -->
+  <div id="step-3" class="step">
+    <h2>3. ترتيب أهميّة كلماتك</h2>
+    <p>
+      رجاءً <strong>رتّب/ي الكلمات/العبارات الثلاث بحسب أهميتها عندك شخصيًا</strong>.
+      ضع/ي علامة على الرقم الذي يعبّر عن الأهمّيّة، حيث:
+      1 = الأهم، 2 = متوسّط الأهمية، 3 = الأقل أهمية،
+      ولا يمكن استعمال كل رقم إلا مرة واحدة.
+    </p>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>الكلمة/العبارة</th>
+            <th>1 (الأهم)</th>
+            <th>2</th>
+            <th>3 (الأقل أهمية)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td id="selfWord1Label_3"></td>
+            <td><input type="radio" name="selfRank1" value="1"></td>
+            <td><input type="radio" name="selfRank1" value="2"></td>
+            <td><input type="radio" name="selfRank1" value="3"></td>
+          </tr>
+          <tr>
+            <td id="selfWord2Label_3"></td>
+            <td><input type="radio" name="selfRank2" value="1"></td>
+            <td><input type="radio" name="selfRank2" value="2"></td>
+            <td><input type="radio" name="selfRank2" value="3"></td>
+          </tr>
+          <tr>
+            <td id="selfWord3Label_3"></td>
+            <td><input type="radio" name="selfRank3" value="1"></td>
+            <td><input type="radio" name="selfRank3" value="2"></td>
+            <td><input type="radio" name="selfRank3" value="3"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="error-step-3" class="error"></div>
+  </div>
+
+  <!-- STEP 4: شعور المستجيب (Self - valence) -->
+  <div id="step-4" class="step">
+    <h2>4. الشعور نحو كلماتك</h2>
+    <p>
+      أمام كل كلمة/عبارة ذكرتَها، رجاءً <strong>حدّد/ي نوع الشعور الذي تثيره عندك</strong>
+      بوضع علامة (X) في الخانة المناسبة.
+      ليس هناك شعور "صحيح" وآخر "خاطئ"؛ الأمر شخصي تمامًا.
+    </p>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>الكلمة/العبارة</th>
+            <th>شعور إيجابي (+)</th>
+            <th>شعور محايد (0)</th>
+            <th>شعور سلبي (-)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td id="selfWord1Label_4"></td>
+            <td><input type="radio" name="selfVal1" value="1"></td>
+            <td><input type="radio" name="selfVal1" value="0"></td>
+            <td><input type="radio" name="selfVal1" value="-1"></td>
+          </tr>
+          <tr>
+            <td id="selfWord2Label_4"></td>
+            <td><input type="radio" name="selfVal2" value="1"></td>
+            <td><input type="radio" name="selfVal2" value="0"></td>
+            <td><input type="radio" name="selfVal2" value="-1"></td>
+          </tr>
+          <tr>
+            <td id="selfWord3Label_4"></td>
+            <td><input type="radio" name="selfVal3" value="1"></td>
+            <td><input type="radio" name="selfVal3" value="0"></td>
+            <td><input type="radio" name="selfVal3" value="-1"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="error-step-4" class="error"></div>
+  </div>
+
+  <!-- STEP 5: كلمات معظم الناس (Others - words) -->
+  <div id="step-5" class="step">
+    <h2>5. تمثّلات «معظم الناس» في رأيك</h2>
+    <p>
+      الآن ننتقل إلى ما تعتقد/ين أن معظم الناس يفكّرون فيه.
+      تخيّل/ي أن أشخاصًا كثيرين سُئلوا عن الانطباعات الأولى التي تخطر ببالهم عندما يسمعون التعبير نفسه:
+      «<span id="termOthers1" class="term-highlight"></span>».
+    </p>
+    <p>
+      في رأيك: ما الكلمات/العبارات الثلاث (3) التي
+      <strong>تظن/ين أن معظم الناس الآخرين</strong>
+      سيستعملونها مباشرة عند سماع هذا التعبير؟
+    </p>
+    <p class="small">اكتب/ي ثلاث كلمات أو عبارات قصيرة.</p>
+    <div class="field-group">
+      <label>1.</label>
+      <input type="text" id="othersWord1" />
+    </div>
+    <div class="field-group">
+      <label>2.</label>
+      <input type="text" id="othersWord2" />
+    </div>
+    <div class="field-group">
+      <label>3.</label>
+      <input type="text" id="othersWord3" />
+    </div>
+    <div id="error-step-5" class="error"></div>
+  </div>
+
+  <!-- STEP 6: معاني معظم الناس (Others - meanings) -->
+  <div id="step-6" class="step">
+    <h2>6. ماذا يُتوقَّع أن يقصد معظم الناس؟</h2>
+    <p>
+      ماذا <strong>تتوقّع أنهم يقصدون</strong> بكل كلمة/عبارة من الكلمات الثلاث التي كتبتَها؟
+    </p>
+    <p class="small">استعمل/ي جملًا قصيرة لا تتجاوز 8 كلمات لكل خانة.</p>
+    <div class="field-group">
+      <label>الكلمة/العبارة الأولى: <span id="othersWord1Label_6" class="muted"></span></label>
+      <textarea id="othersExpl1"></textarea>
+    </div>
+    <div class="field-group">
+      <label>الكلمة/العبارة الثانية: <span id="othersWord2Label_6" class="muted"></span></label>
+      <textarea id="othersExpl2"></textarea>
+    </div>
+    <div class="field-group">
+      <label>الكلمة/العبارة الثالثة: <span id="othersWord3Label_6" class="muted"></span></label>
+      <textarea id="othersExpl3"></textarea>
+    </div>
+    <div id="error-step-6" class="error"></div>
+  </div>
+
+  <!-- STEP 7: ترتيب الأهمية عند معظم الناس (Others - ranks) -->
+  <div id="step-7" class="step">
+    <h2>7. ترتيب أهميّة الكلمات المتوقَّعة عند معظم الناس</h2>
+    <p>
+      <strong>رتّب هذه الكلمات/العبارات حسب أهميتها المتوقعة لدى معظم الناس</strong>
+      (1 = الأهم، 2 = متوسّط الأهمية، 3 = الأقل أهمية)،
+      ولا يمكن استعمال كل رقم إلا مرة واحدة.
+    </p>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>الكلمة/العبارة</th>
+            <th>1 (الأهم)</th>
+            <th>2</th>
+            <th>3 (الأقل أهمية)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td id="othersWord1Label_7"></td>
+            <td><input type="radio" name="othersRank1" value="1"></td>
+            <td><input type="radio" name="othersRank1" value="2"></td>
+            <td><input type="radio" name="othersRank1" value="3"></td>
+          </tr>
+          <tr>
+            <td id="othersWord2Label_7"></td>
+            <td><input type="radio" name="othersRank2" value="1"></td>
+            <td><input type="radio" name="othersRank2" value="2"></td>
+            <td><input type="radio" name="othersRank2" value="3"></td>
+          </tr>
+          <tr>
+            <td id="othersWord3Label_7"></td>
+            <td><input type="radio" name="othersRank3" value="1"></td>
+            <td><input type="radio" name="othersRank3" value="2"></td>
+            <td><input type="radio" name="othersRank3" value="3"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="error-step-7" class="error"></div>
+  </div>
+
+  <!-- STEP 8: الشعور المتوقّع عند معظم الناس (Others - valence) -->
+  <div id="step-8" class="step">
+    <h2>8. الشعور المتوقَّع عند معظم الناس</h2>
+    <p>
+      ما الشعور الذي <strong>تتوقّع أن يحسّه معظم الناس</strong> نحو كل كلمة/عبارة (إيجابي، محايد، سلبي)؟
+    </p>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>الكلمة/العبارة</th>
+            <th>شعور إيجابي (+)</th>
+            <th>شعور محايد (0)</th>
+            <th>شعور سلبي (-)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td id="othersWord1Label_8"></td>
+            <td><input type="radio" name="othersVal1" value="1"></td>
+            <td><input type="radio" name="othersVal1" value="0"></td>
+            <td><input type="radio" name="othersVal1" value="-1"></td>
+          </tr>
+          <tr>
+            <td id="othersWord2Label_8"></td>
+            <td><input type="radio" name="othersVal2" value="1"></td>
+            <td><input type="radio" name="othersVal2" value="0"></td>
+            <td><input type="radio" name="othersVal2" value="-1"></td>
+          </tr>
+          <tr>
+            <td id="othersWord3Label_8"></td>
+            <td><input type="radio" name="othersVal3" value="1"></td>
+            <td><input type="radio" name="othersVal3" value="0"></td>
+            <td><input type="radio" name="othersVal3" value="-1"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="error-step-8" class="error"></div>
+  </div>
+
+  <!-- STEP 9: مقياس المسافة الاجتماعية -->
+  <div id="step-9" class="step">
+    <p>
+      في العبارات الآتية نتحدّث عن
+      «<span id="termSD" class="term-highlight"></span>».
+      نرجو أن تعبّر/ي عن <strong>مدى قبولك لكل وضعية من هذه الوضعيات</strong>.
+    </p>
+    <p>
+      أمام كل عبارة، ضع/ي علامة:
+      نعم = إذا كنت تقبل هذه العلاقة مع الشخص الذي تُستعمل في حقّه هذه التسمية،
+      لا = إذا كنت لا تقبل هذه العلاقة.
+    </p>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>العبارة</th>
+            <th>نعم</th>
+            <th>لا</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="sdItem" data-index="0"></td>
+            <td><input type="radio" name="sd1" value="1"></td>
+            <td><input type="radio" name="sd1" value="0"></td>
+          </tr>
+          <tr>
+            <td class="sdItem" data-index="1"></td>
+            <td><input type="radio" name="sd2" value="1"></td>
+            <td><input type="radio" name="sd2" value="0"></td>
+          </tr>
+          <tr>
+            <td class="sdItem" data-index="2"></td>
+            <td><input type="radio" name="sd3" value="1"></td>
+            <td><input type="radio" name="sd3" value="0"></td>
+          </tr>
+          <tr>
+            <td class="sdItem" data-index="3"></td>
+            <td><input type="radio" name="sd4" value="1"></td>
+            <td><input type="radio" name="sd4" value="0"></td>
+          </tr>
+          <tr>
+            <td class="sdItem" data-index="4"></td>
+            <td><input type="radio" name="sd5" value="1"></td>
+            <td><input type="radio" name="sd5" value="0"></td>
+          </tr>
+          <tr>
+            <td class="sdItem" data-index="5"></td>
+            <td><input type="radio" name="sd6" value="1"></td>
+            <td><input type="radio" name="sd6" value="0"></td>
+          </tr>
+          <tr>
+            <td class="sdItem" data-index="6"></td>
+            <td><input type="radio" name="sd7" value="1"></td>
+            <td><input type="radio" name="sd7" value="0"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="error-step-9" class="error"></div>
+  </div>
+
+  <!-- STEP 10: ديموغرافيا + تجربة -->
+  <div id="step-10" class="step">
+    <div class="field-group">
+      <label>1. العمر (بالأرقام، بالسنوات):</label>
+      <input type="number" id="age_years" min="18" max="26" />
+    </div>
+
+    <div class="field-group">
+      <label>2. الجنس:</label>
+      <div class="inline-options">
+        <label><input type="radio" name="gender" value="1"> ذكر</label>
+        <label><input type="radio" name="gender" value="2"> أنثى</label>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label>3. التخصص الجامعي:</label>
+      <input type="text" id="major_text" />
+    </div>
+
+    <div class="field-group">
+      <label>4. المستوى الجامعي الحالي (ضع/ي علامة أمام مستوى تسجيلك الحالي):</label>
+      <div class="inline-options">
+        <label><input type="radio" name="study_level" value="1"> S1</label>
+        <label><input type="radio" name="study_level" value="2"> S2</label>
+        <label><input type="radio" name="study_level" value="3"> S3</label>
+        <label><input type="radio" name="study_level" value="4"> S4</label>
+        <label><input type="radio" name="study_level" value="5"> S5</label>
+        <label><input type="radio" name="study_level" value="6"> S6</label>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label>5. هل سبق لك أن تلقيت تكوينًا له صلة بالإعاقة الذهنية أو بالتربية الدامجة لتلاميذ في وضعيّة إعاقة ذهنية؟ (يمكن اختيار أكثر من جواب)</label>
+      <div class="vertical-options">
+        <label><input type="checkbox" id="training_none"> لا، لم أتلقَّ أي تكوين في هذا المجال</label>
+        <label><input type="checkbox" id="training_ID_only"> نعم، تكوين حول الإعاقة الذهنية عمومًا</label>
+        <label><input type="checkbox" id="training_inclusion_only"> نعم، تكوين حول التربية الدامجة</label>
+        <label><input type="checkbox" id="training_both_ID_inclusion"> نعم، تكوين يشمل الإعاقة الذهنية والتربية الدامجة معًا</label>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label>6. هل لك تجربة مهنية مباشرة (مثل تدريس، تأطير، تقديم خدمة...) مع أشخاص ذوي إعاقة ذهنية؟</label>
+      <div class="inline-options">
+        <label><input type="radio" name="direct_prof_exp_ID" value="0"> لا</label>
+        <label><input type="radio" name="direct_prof_exp_ID" value="1"> نعم</label>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label>7. هل لك صلة بشخص ذي إعاقة ذهنية؟</label>
+      <div class="vertical-options">
+        <label><input type="radio" name="relation_to_ID_person" value="0"> لا</label>
+        <label><input type="radio" name="relation_to_ID_person" value="1"> نعم، قريب من العائلة</label>
+        <label><input type="radio" name="relation_to_ID_person" value="2"> نعم، صديق</label>
+        <label><input type="radio" name="relation_to_ID_person" value="3"> نعم، لكن لا تربطني به علاقة صداقة أو قرابة</label>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label>8. كيف تصف/ين مستوى معرفتك الحالية بموضوع الإعاقة الذهنية؟</label>
+      <div class="vertical-options">
+        <label><input type="radio" name="knowledge_ID_level" value="1"> لا أملك تقريبًا أي معرفة بهذا الموضوع</label>
+        <label><input type="radio" name="knowledge_ID_level" value="2"> لديّ معرفة بسيطة / سطحية (بعض المعلومات العامة)</label>
+        <label><input type="radio" name="knowledge_ID_level" value="3"> لديّ معرفة متوسطة (درستُ أو قرأتُ عنه بشكل محدود)</label>
+        <label><input type="radio" name="knowledge_ID_level" value="4"> لديّ معرفة جيدة (قرأتُ أو درستُ الموضوع بشكل منهجي نسبيًا)</label>
+        <label><input type="radio" name="knowledge_ID_level" value="5"> لديّ معرفة معمّقة (تكوين متخصص، قراءة معمقة، أو خبرة مهنية مباشرة في المجال)</label>
+      </div>
+    </div>
+
+    <div id="error-step-10" class="error"></div>
+  </div>
+
+  <!-- STEP 11: تواتر الألفاظ الأربع -->
+  <div id="step-11" class="step">
+    <p>
+      9. في حياتك اليومية، أو خلال دراستك الجامعية، إلى أي حدّ تسمع أو تستعمل التعابير الآتية؟
+      ضع/ي علامة (X) في الخانة المناسبة لكل تعبير، مستعملًا/ة السُّلَّم التالي:
+      1 نادرًا جدًا؛ 2 نادرًا؛ 3 أحيانًا؛ 4 غالبًا؛ 5 كثيرًا جدًا.
+    </p>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>التعبير</th>
+            <th>1 نادرًا جدًا</th>
+            <th>2 نادرًا</th>
+            <th>3 أحيانًا</th>
+            <th>4 غالبًا</th>
+            <th>5 كثيرًا جدًا</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="term-highlight">شخص متخلّف ذهنيًا</span></td>
+            <td><input type="radio" name="freq1" value="1"></td>
+            <td><input type="radio" name="freq1" value="2"></td>
+            <td><input type="radio" name="freq1" value="3"></td>
+            <td><input type="radio" name="freq1" value="4"></td>
+            <td><input type="radio" name="freq1" value="5"></td>
+          </tr>
+          <tr>
+            <td><span class="term-highlight">شخص معاق ذهنيًا</span></td>
+            <td><input type="radio" name="freq2" value="1"></td>
+            <td><input type="radio" name="freq2" value="2"></td>
+            <td><input type="radio" name="freq2" value="3"></td>
+            <td><input type="radio" name="freq2" value="4"></td>
+            <td><input type="radio" name="freq2" value="5"></td>
+          </tr>
+          <tr>
+            <td><span class="term-highlight">شخص ذو إعاقة ذهنية</span></td>
+            <td><input type="radio" name="freq3" value="1"></td>
+            <td><input type="radio" name="freq3" value="2"></td>
+            <td><input type="radio" name="freq3" value="3"></td>
+            <td><input type="radio" name="freq3" value="4"></td>
+            <td><input type="radio" name="freq3" value="5"></td>
+          </tr>
+          <tr>
+            <td><span class="term-highlight">شخص في وضعيّة إعاقة ذهنية</span></td>
+            <td><input type="radio" name="freq4" value="1"></td>
+            <td><input type="radio" name="freq4" value="2"></td>
+            <td><input type="radio" name="freq4" value="3"></td>
+            <td><input type="radio" name="freq4" value="4"></td>
+            <td><input type="radio" name="freq4" value="5"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="error-step-11" class="error"></div>
+  </div>
+
+  <!-- STEP 12: رسالة الشكر أو عدم المشاركة -->
+  <div id="step-12" class="step">
+    <div id="thanks-participate">
+      <h2>شكرًا لمشاركتك</h2>
+      <p>
+        شكرًا جزيلًا على وقتك ومشاركتك في هذه الاستبانة.
+        مساهمتك مهمة في تطوير البحث العلمي وفهم تصوّرات الطلبة حول بعض الأوضاع الاجتماعية والتربوية،
+        وستُستعمل إجاباتك لأغراض علمية فقط وبشكل سري تمامًا.
+      </p>
+      <p>نثمّن تعاونك ونتمنى لك التوفيق في مسارك الدراسي والمهني.</p>
+    </div>
+    <div id="thanks-decline">
+      <h2>شكرًا لاهتمامك</h2>
+      <p>
+        شكرًا لاهتمامك ولقراءة معلومات هذه الدراسة.
+        نحن نحترم تمامًا قرارك في عدم المشاركة أو التوقّف عن الإجابة، ونتفهّم أن لكل شخص أسبابه واختياراته.
+      </p>
+      <p>
+        مشاركتك في هذه الدراسة طوعية بالكامل، ونقدّر وقتك واهتمامك، ونتمنى لك التوفيق في مسارك الدراسي والمهني.
+      </p>
+    </div>
+  </div>
+
+  <!-- أزرار التنقّل العامة -->
+  <div class="nav-buttons" id="navButtons">
+    <button class="secondary" id="prevBtn" onclick="prevStep()">السابق</button>
+    <button class="primary" id="nextBtn" onclick="nextStep()">التالي</button>
+  </div>
+</div>
+
+<script>
+  let currentStep = 0;
+  const maxStep = 12;
+  let conditionLabel = null;
+  let conditionTerm = '';
+  let declined = false;
+
+  const conditionTerms = {
+    1: 'شخص متخلّف ذهنيًا',
+    2: 'شخص معاق ذهنيًا',
+    3: 'شخص ذو إعاقة ذهنية',
+    4: 'شخص في وضعيّة إعاقة ذهنية'
+  };
+
+  const sdItemsByCondition = {
+    1: [
+      'أقبل أن أتزوّج شخصًا متخلّفًا ذهنيًا.',
+      'أقبل أن يتزوّج أحد أفراد أسرتي المقرّبين (مثل أخي أو أختي) شخصًا متخلّفًا ذهنيًا، فيصبح من أصهاري.',
+      'أقبل أن يكون جاري في نفس الحي شخصًا متخلّفًا ذهنيًا.',
+      'أقبل أن يكون لي صديقٌ مقرّبٌ متخلّفٌ ذهنيًا.',
+      'أقبل أن أعمل مع شخصٍ متخلّفٍ ذهنيًا في نفس الفريق أو مكان العمل.',
+      'أقبل أن أدرّس في قسمي تلميذًا متخلّفًا ذهنيًا.',
+      'أقبل أن يعيش الأشخاص المتخلّفون ذهنيًا كمواطنين عاديين في نفس المجتمع والبلد الذي أعيش فيه.'
+    ],
+    2: [
+      'أقبل أن أتزوّج شخصًا معاقًا ذهنيًا.',
+      'أقبل أن يتزوّج أحد أفراد أسرتي المقرّبين (مثل أخي أو أختي) شخصًا معاقًا ذهنيًا، فيصبح من أصهاري.',
+      'أقبل أن يكون جاري في نفس الحي شخصًا معاقًا ذهنيًا.',
+      'أقبل أن يكون لي صديقٌ مقرّبٌ معاقٌ ذهنيًا.',
+      'أقبل أن أعمل مع شخصٍ معاقٍ ذهنيًا في نفس الفريق أو مكان العمل.',
+      'أقبل أن أدرّس في قسمي تلميذًا معاقًا ذهنيًا.',
+      'أقبل أن يعيش الأشخاص المعاقون ذهنيًا كمواطنين عاديين في نفس المجتمع والبلد الذي أعيش فيه.'
+    ],
+    3: [
+      'أقبل أن أتزوّج شخصًا ذا إعاقة ذهنية.',
+      'أقبل أن يتزوّج أحد أفراد أسرتي المقرّبين (مثل أخي أو أختي) شخصًا ذا إعاقة ذهنية، فيصبح من أصهاري.',
+      'أقبل أن يكون جاري في نفس الحي شخصًا ذا إعاقة ذهنية.',
+      'أقبل أن يكون لي صديقًا مقرّبًا ذا إعاقة ذهنية.',
+      'أقبل أن أعمل مع شخصٍ ذي إعاقة ذهنية في نفس الفريق أو مكان العمل.',
+      'أقبل أن أدرّس في قسمي تلميذًا ذا إعاقة ذهنية.',
+      'أقبل أن يعيش الأشخاص ذوو إعاقة ذهنية كمواطنين عاديين في نفس المجتمع والبلد الذي أعيش فيه.'
+    ],
+    4: [
+      'أقبل أن أتزوّج شخصًا في وضعيّة إعاقة ذهنية.',
+      'أقبل أن يتزوّج أحد أفراد أسرتي المقرّبين (مثل أخي أو أختي) شخصًا في وضعيّة إعاقة ذهنية، فيصبح من أصهاري.',
+      'أقبل أن يكون جاري في نفس الحي شخصًا في وضعيّة إعاقة ذهنية.',
+      'أقبل أن يكون لي صديقٌ مقرّبٌ في وضعيّة إعاقة ذهنية.',
+      'أقبل أن أعمل مع شخصٍ في وضعيّة إعاقة ذهنية في نفس الفريق أو مكان العمل.',
+      'أقبل أن أدرّس في قسمي تلميذًا في وضعيّة إعاقة ذهنية.',
+      'أقبل أن يعيش الأشخاص في وضعيّة إعاقة ذهنية كمواطنين عاديين في نفس المجتمع والبلد الذي أعيش فيه.'
+    ]
+  };
+
+  function showStep(step) {
+    for (let i = 0; i <= maxStep; i++) {
+      const el = document.getElementById('step-' + i);
+      if (el) el.classList.remove('active');
+    }
+    const stepEl = document.getElementById('step-' + step);
+    if (stepEl) stepEl.classList.add('active');
+    currentStep = step;
+
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const nav = document.getElementById('navButtons');
+
+    if (step === 0 || step === 12) {
+      nav.style.display = 'none';
+    } else {
+      nav.style.display = 'flex';
+    }
+
+    if (step === 1 || step >= 10) {
+      prevBtn.disabled = true;
+    } else {
+      prevBtn.disabled = false;
+    }
+
+    if (step === 11) {
+      nextBtn.textContent = 'إرسال';
+    } else {
+      nextBtn.textContent = 'التالي';
+    }
+
+    const sectionHeader = document.getElementById('sectionHeader');
+    if (sectionHeader) {
+      let label = '';
+      if (step >= 1 && step <= 8) {
+        label = 'القسم الأول';
+      } else if (step === 9) {
+        label = 'القسم الثاني';
+      } else if (step === 10 || step === 11) {
+        label = 'القسم الثالث';
+      } else {
+        label = '';
+      }
+      sectionHeader.textContent = label;
+      sectionHeader.style.display = label ? 'block' : 'none';
+    }
+
+    if (conditionTerm) {
+      const t1 = document.getElementById('termSelf1');
+      const t2 = document.getElementById('termSelf2');
+      const tO1 = document.getElementById('termOthers1');
+      const tSD = document.getElementById('termSD');
+      if (t1) t1.textContent = conditionTerm;
+      if (t2) t2.textContent = conditionTerm;
+      if (tO1) tO1.textContent = conditionTerm;
+      if (tSD) tSD.textContent = conditionTerm;
+    }
+
+    if (step === 9) {
+      updateSDItems();
+    }
+
+    if (step === 2 || step === 3 || step === 4) {
+      updateSelfWordLabels();
+    }
+    if (step === 6 || step === 7 || step === 8) {
+      updateOthersWordLabels();
+    }
+
+    if (step === 12) {
+      const p = document.getElementById('thanks-participate');
+      const d = document.getElementById('thanks-decline');
+      if (declined) {
+        if (p) p.style.display = 'none';
+        if (d) d.style.display = 'block';
+      } else {
+        if (p) p.style.display = 'block';
+        if (d) d.style.display = 'none';
+      }
+    }
+  }
+
+  function updateSDItems() {
+    const texts = sdItemsByCondition[conditionLabel] || [];
+    const cells = document.querySelectorAll('.sdItem');
+    cells.forEach(function(td) {
+      const idx = parseInt(td.getAttribute('data-index'), 10);
+      td.textContent = texts[idx] || '';
+    });
+  }
+
+  function nextStep() {
+    if (!validateStep(currentStep)) return;
+    if (currentStep === 11) {
+      submitForm();
+      return;
+    }
+    if (currentStep < maxStep) {
+      showStep(currentStep + 1);
+    }
+  }
+
+  function prevStep() {
+    if (currentStep >= 10) return;
+    if (currentStep > 0) {
+      showStep(currentStep - 1);
+    }
+  }
+
+  function handleConsent(yes) {
+    if (!yes) {
+      declined = true;
+      showStep(12);
+      return;
+    }
+    declined = false;
+    conditionLabel = chooseConditionLabel();
+    conditionTerm = conditionTerms[conditionLabel] || '';
+    showStep(1);
+  }
+
+  function chooseConditionLabel() {
+    const labels = [1, 2, 3, 4];
+    const idx = Math.floor(Math.random() * labels.length);
+    return labels[idx];
+  }
+
+  function setError(step, msg) {
+    const el = document.getElementById('error-step-' + step);
+    if (el) el.textContent = msg || '';
+  }
+
+  function clearError(step) {
+    setError(step, '');
+  }
+
+  function isEmpty(str) {
+    return !str || str.trim() === '';
+  }
+
+  function countWords(str) {
+    return str.trim().split(/\s+/).filter(Boolean).length;
+  }
+
+  function containsDigits(str) {
+    return /[0-9٠-٩]/.test(str);
+  }
+
+  function looksLikeSeparatedLetters(str) {
+    const tokens = str.trim().split(/\s+/).filter(Boolean);
+    if (tokens.length <= 1) return false;
+    return tokens.every(t => t.length === 1);
+  }
+
+  function updateSelfWordLabels() {
+    const w1 = document.getElementById('selfWord1').value.trim();
+    const w2 = document.getElementById('selfWord2').value.trim();
+    const w3 = document.getElementById('selfWord3').value.trim();
+
+    const l1_2 = document.getElementById('selfWord1Label_2');
+    const l2_2 = document.getElementById('selfWord2Label_2');
+    const l3_2 = document.getElementById('selfWord3Label_2');
+
+    const l1_3 = document.getElementById('selfWord1Label_3');
+    const l2_3 = document.getElementById('selfWord2Label_3');
+    const l3_3 = document.getElementById('selfWord3Label_3');
+
+    const l1_4 = document.getElementById('selfWord1Label_4');
+    const l2_4 = document.getElementById('selfWord2Label_4');
+    const l3_4 = document.getElementById('selfWord3Label_4');
+
+    if (l1_2) l1_2.textContent = w1;
+    if (l2_2) l2_2.textContent = w2;
+    if (l3_2) l3_2.textContent = w3;
+
+    if (l1_3) l1_3.textContent = w1;
+    if (l2_3) l2_3.textContent = w2;
+    if (l3_3) l3_3.textContent = w3;
+
+    if (l1_4) l1_4.textContent = w1;
+    if (l2_4) l2_4.textContent = w2;
+    if (l3_4) l3_4.textContent = w3;
+  }
+
+  function updateOthersWordLabels() {
+    const w1 = document.getElementById('othersWord1').value.trim();
+    const w2 = document.getElementById('othersWord2').value.trim();
+    const w3 = document.getElementById('othersWord3').value.trim();
+
+    const l1_6 = document.getElementById('othersWord1Label_6');
+    const l2_6 = document.getElementById('othersWord2Label_6');
+    const l3_6 = document.getElementById('othersWord3Label_6');
+
+    const l1_7 = document.getElementById('othersWord1Label_7');
+    const l2_7 = document.getElementById('othersWord2Label_7');
+    const l3_7 = document.getElementById('othersWord3Label_7');
+
+    const l1_8 = document.getElementById('othersWord1Label_8');
+    const l2_8 = document.getElementById('othersWord2Label_8');
+    const l3_8 = document.getElementById('othersWord3Label_8');
+
+    if (l1_6) l1_6.textContent = w1;
+    if (l2_6) l2_6.textContent = w2;
+    if (l3_6) l3_6.textContent = w3;
+
+    if (l1_7) l1_7.textContent = w1;
+    if (l2_7) l2_7.textContent = w2;
+    if (l3_7) l3_7.textContent = w3;
+
+    if (l1_8) l1_8.textContent = w1;
+    if (l2_8) l2_8.textContent = w2;
+    if (l3_8) l3_8.textContent = w3;
+  }
+
+  function getCheckedValue(name) {
+    const radios = document.getElementsByName(name);
+    for (let i = 0; i < radios.length; i++) {
+      if (radios[i].checked) {
+        return radios[i].value;
+      }
+    }
+    return null;
+  }
+
+  function enforceUniqueRank(groupNames, changedInput) {
+    if (!changedInput.checked) return;
+    const val = changedInput.value;
+    groupNames.forEach(name => {
+      if (name === changedInput.name) return;
+      const radios = document.getElementsByName(name);
+      for (let i = 0; i < radios.length; i++) {
+        if (radios[i].value === val && radios[i].checked) {
+          radios[i].checked = false;
+        }
+      }
+    });
+  }
+
+  document.addEventListener('change', function(e) {
+    if (e.target && e.target.name && e.target.name.startsWith('selfRank')) {
+      enforceUniqueRank(['selfRank1', 'selfRank2', 'selfRank3'], e.target);
+    }
+    if (e.target && e.target.name && e.target.name.startsWith('othersRank')) {
+      enforceUniqueRank(['othersRank1', 'othersRank2', 'othersRank3'], e.target);
+    }
+  });
+
+  // جعل خيار "لا، لم أتلقَّ أي تكوين..." حصريًّا مع بقية خيارات التكوين
+  document.addEventListener('DOMContentLoaded', function() {
+    const trainingNone = document.getElementById('training_none');
+    const trainingID = document.getElementById('training_ID_only');
+    const trainingInclusion = document.getElementById('training_inclusion_only');
+    const trainingBoth = document.getElementById('training_both_ID_inclusion');
+
+    const otherTrainings = [trainingID, trainingInclusion, trainingBoth];
+
+    if (trainingNone) {
+      trainingNone.addEventListener('change', function() {
+        if (this.checked) {
+          // إذا اختار "لا تكوين" تُزال بقية الاختيارات وتُغلق
+          otherTrainings.forEach(function(cb) {
+            if (cb) {
+              cb.checked = false;
+              cb.disabled = true;
+            }
+          });
+        } else {
+          // إذا أزال علامة "لا تكوين" تُفتح بقية الاختيارات من جديد
+          otherTrainings.forEach(function(cb) {
+            if (cb) {
+              cb.disabled = false;
+            }
+          });
+        }
+      });
+    }
+
+    otherTrainings.forEach(function(cb) {
+      if (!cb) return;
+      cb.addEventListener('change', function() {
+        if (this.checked) {
+          // إذا اختار أي تكوين، تزال علامة "لا تكوين"
+          if (trainingNone) {
+            trainingNone.checked = false;
+          }
+          // يبقى تمكين بقية الاختيارات
+          otherTrainings.forEach(function(cb2) {
+            if (cb2) cb2.disabled = false;
+          });
+        }
+      });
+    });
+  });
+
+  function validateStep(step) {
+    switch (step) {
+      case 1: return validateStep1();
+      case 2: return validateStep2();
+      case 3: return validateStep3();
+      case 4: return validateStep4();
+      case 5: return validateStep5();
+      case 6: return validateStep6();
+      case 7: return validateStep7();
+      case 8: return validateStep8();
+      case 9: return validateStep9();
+      case 10: return validateStep10();
+      case 11: return validateStep11();
+      default:
+        return true;
+    }
+  }
+
+  function validateStep1() {
+    clearError(1);
+    const w1 = document.getElementById('selfWord1').value.trim();
+    const w2 = document.getElementById('selfWord2').value.trim();
+    const w3 = document.getElementById('selfWord3').value.trim();
+    const words = [w1, w2, w3];
+
+    for (let i = 0; i < 3; i++) {
+      const wi = words[i];
+      if (isEmpty(wi)) {
+        setError(1, 'رجاءً اكتب/ي ثلاث كلمات أو عبارات؛ لا تترك أي خانة فارغة.');
+        return false;
+      }
+      const noSpaces = wi.replace(/\s+/g, '');
+      if (noSpaces.length === 1) {
+        setError(1, 'رجاءً اكتب/ي كلمة أو عبارة حقيقية، وليس حرفًا واحدًا فقط.');
+        return false;
+      }
+      if (containsDigits(wi)) {
+        setError(1, 'رجاءً لا تستعمل/ي الأرقام كإجابة في هذه الخانات.');
+        return false;
+      }
+      const wc = countWords(wi);
+      if (wc > 5) {
+        setError(1, 'رجاءً لا تتجاوز 5 كلمات في كل خانة.');
+        return false;
+      }
+      if (looksLikeSeparatedLetters(wi)) {
+        setError(1, 'الرجاء كتابة كلمة أو عبارة حقيقية، وليس حروفًا منفصلة.');
+        return false;
+      }
+    }
+    const lowerSet = new Set(words.map(w => w.toLowerCase()));
+    if (lowerSet.size < 3) {
+      setError(1, 'رجاءً لا تكرّر/ي نفس الكلمة أو العبارة في أكثر من خانة.');
+      return false;
+    }
+    return true;
+  }
+
+  function validateStep2() {
+    clearError(2);
+    const e1 = document.getElementById('selfExpl1').value.trim();
+    const e2 = document.getElementById('selfExpl2').value.trim();
+    const e3 = document.getElementById('selfExpl3').value.trim();
+    const expls = [e1, e2, e3];
+
+    for (let i = 0; i < 3; i++) {
+      const ei = expls[i];
+      if (isEmpty(ei)) {
+        setError(2, 'رجاءً اكتب/ي جملة قصيرة تشرح معنى كل كلمة/عبارة؛ لا تترك أي خانة فارغة.');
+        return false;
+      }
+      if (containsDigits(ei)) {
+        setError(2, 'رجاءً لا تستعمل/ي الأرقام وحدها كإجابة في الشرح.');
+        return false;
+      }
+      const wc = countWords(ei);
+      if (wc > 8) {
+        setError(2, 'رجاءً لا تتجاوز 8 كلمات في شرح كل كلمة/عبارة.');
+        return false;
+      }
+    }
+    const lowerSet = new Set(expls.map(e => e.toLowerCase()));
+    if (lowerSet.size < 3) {
+      setError(2, 'رجاءً لا تكرّر/ي نفس الجملة حرفيًا في الخانات الثلاث.');
+      return false;
+    }
+    return true;
+  }
+
+  function validateStep3() {
+    clearError(3);
+    const r1 = getCheckedValue('selfRank1');
+    const r2 = getCheckedValue('selfRank2');
+    const r3 = getCheckedValue('selfRank3');
+
+    if (!r1 || !r2 || !r3) {
+      setError(3, 'رجاءً اختر/ي رتبة لكل كلمة/عبارة (1 أو 2 أو 3).');
+      return false;
+    }
+    const vals = [r1, r2, r3];
+    const setVals = new Set(vals);
+    if (setVals.size < 3) {
+      setError(3, 'لا يمكن تكرار نفس الرقم؛ يجب أن تستعمل/ي 1 و2 و3 مرة واحدة لكل كلمة.');
+      return false;
+    }
+    return true;
+  }
+
+  function validateStep4() {
+    clearError(4);
+    const v1 = getCheckedValue('selfVal1');
+    const v2 = getCheckedValue('selfVal2');
+    const v3 = getCheckedValue('selfVal3');
+    if (v1 === null || v2 === null || v3 === null) {
+      setError(4, 'رجاءً حدّد/ي نوع الشعور لكل كلمة/عبارة (إيجابي/محايد/سلبي).');
+      return false;
+    }
+    return true;
+  }
+
+  function validateStep5() {
+    clearError(5);
+    const w1 = document.getElementById('othersWord1').value.trim();
+    const w2 = document.getElementById('othersWord2').value.trim();
+    const w3 = document.getElementById('othersWord3').value.trim();
+    const words = [w1, w2, w3];
+
+    for (let i = 0; i < 3; i++) {
+      const wi = words[i];
+      if (isEmpty(wi)) {
+        setError(5, 'رجاءً اكتب/ي ثلاث كلمات أو عبارات متوقَّعة عند معظم الناس؛ لا تترك أي خانة فارغة.');
+        return false;
+      }
+      const noSpaces = wi.replace(/\s+/g, '');
+      if (noSpaces.length === 1) {
+        setError(5, 'رجاءً اكتب/ي كلمة أو عبارة حقيقية، وليس حرفًا واحدًا فقط.');
+        return false;
+      }
+      if (containsDigits(wi)) {
+        setError(5, 'رجاءً لا تستعمل/ي الأرقام كإجابة في هذه الخانات.');
+        return false;
+      }
+      const wc = countWords(wi);
+      if (wc > 5) {
+        setError(5, 'رجاءً لا تتجاوز 5 كلمات في كل خانة.');
+        return false;
+      }
+      if (looksLikeSeparatedLetters(wi)) {
+        setError(5, 'الرجاء كتابة كلمة أو عبارة حقيقية، وليس حروفًا منفصلة.');
+        return false;
+      }
+    }
+    const lowerSet = new Set(words.map(w => w.toLowerCase()));
+    if (lowerSet.size < 3) {
+      setError(5, 'رجاءً لا تكرّر/ي نفس الكلمة أو العبارة في أكثر من خانة.');
+      return false;
+    }
+    return true;
+  }
+
+  function validateStep6() {
+    clearError(6);
+    const e1 = document.getElementById('othersExpl1').value.trim();
+    const e2 = document.getElementById('othersExpl2').value.trim();
+    const e3 = document.getElementById('othersExpl3').value.trim();
+    const expls = [e1, e2, e3];
+
+    for (let i = 0; i < 3; i++) {
+      const ei = expls[i];
+      if (isEmpty(ei)) {
+        setError(6, 'رجاءً اكتب/ي جملة قصيرة تشرح ما تتوقّع أنهم يقصدونه بكل كلمة؛ لا تترك أي خانة فارغة.');
+        return false;
+      }
+      if (containsDigits(ei)) {
+        setError(6, 'رجاءً لا تستعمل/ي الأرقام وحدها كإجابة في الشرح.');
+        return false;
+      }
+      const wc = countWords(ei);
+      if (wc > 8) {
+        setError(6, 'رجاءً لا تتجاوز 8 كلمات في شرح كل كلمة/عبارة.');
+        return false;
+      }
+    }
+    const lowerSet = new Set(expls.map(e => e.toLowerCase()));
+    if (lowerSet.size < 3) {
+      setError(6, 'رجاءً لا تكرّر/ي نفس الجملة حرفيًا في الخانات الثلاث.');
+      return false;
+    }
+    return true;
+  }
+
+  function validateStep7() {
+    clearError(7);
+    const r1 = getCheckedValue('othersRank1');
+    const r2 = getCheckedValue('othersRank2');
+    const r3 = getCheckedValue('othersRank3');
+
+    if (!r1 || !r2 || !r3) {
+      setError(7, 'رجاءً اختر/ي رتبة لكل كلمة/عبارة متوقَّعة (1 أو 2 أو 3).');
+      return false;
+    }
+    const vals = [r1, r2, r3];
+    const setVals = new Set(vals);
+    if (setVals.size < 3) {
+      setError(7, 'لا يمكن تكرار نفس الرقم؛ يجب أن تستعمل/ي 1 و2 و3 مرة واحدة لكل كلمة.');
+      return false;
+    }
+    return true;
+  }
+
+  function validateStep8() {
+    clearError(8);
+    const v1 = getCheckedValue('othersVal1');
+    const v2 = getCheckedValue('othersVal2');
+    const v3 = getCheckedValue('othersVal3');
+    if (v1 === null || v2 === null || v3 === null) {
+      setError(8, 'رجاءً حدّد/ي الشعور المتوقَّع عند معظم الناس نحو كل كلمة/عبارة.');
+      return false;
+    }
+    return true;
+  }
+
+  function validateStep9() {
+    clearError(9);
+    for (let i = 1; i <= 7; i++) {
+      const val = getCheckedValue('sd' + i);
+      if (val === null) {
+        setError(9, 'رجاءً أجب/ي بنعم أو لا على جميع العبارات.');
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function validateStep10() {
+    clearError(10);
+    const ageEl = document.getElementById('age_years');
+    const age = ageEl ? parseInt(ageEl.value, 10) : NaN;
+    if (!age || age < 18 || age > 26) {
+      setError(10, 'رجاءً أدخل/ي عمرًا بين 18 و26 سنة، ثم تحقّق/ي من صحة الرقم.');
+      return false;
+    }
+    const gender = getCheckedValue('gender');
+    if (gender === null) {
+      setError(10, 'رجاءً اختر/ي الجنس.');
+      return false;
+    }
+    const major = document.getElementById('major_text').value.trim();
+    if (isEmpty(major)) {
+      setError(10, 'رجاءً اكتب/ي تخصصك الجامعي.');
+      return false;
+    }
+    const level = getCheckedValue('study_level');
+    if (level === null) {
+      setError(10, 'رجاءً حدّد/ي مستواك الجامعي الحالي.');
+      return false;
+    }
+    const training_none = document.getElementById('training_none').checked;
+    const tID = document.getElementById('training_ID_only').checked;
+    const tInc = document.getElementById('training_inclusion_only').checked;
+    const tBoth = document.getElementById('training_both_ID_inclusion').checked;
+    if (!training_none && !tID && !tInc && !tBoth) {
+      setError(10, 'رجاءً حدّد/ي على الأقل خيارًا واحدًا في التكوين (أو لا تكوين).');
+      return false;
+    }
+    const directExp = getCheckedValue('direct_prof_exp_ID');
+    if (directExp === null) {
+      setError(10, 'رجاءً حدّد/ي هل لك تجربة مهنية مباشرة مع أشخاص ذوي إعاقة ذهنية أم لا.');
+      return false;
+    }
+    const rel = getCheckedValue('relation_to_ID_person');
+    if (rel === null) {
+      setError(10, 'رجاءً حدّد/ي نوع صلتك بشخص ذي إعاقة ذهنية (أو عدم وجود صلة).');
+      return false;
+    }
+    const know = getCheckedValue('knowledge_ID_level');
+    if (know === null) {
+      setError(10, 'رجاءً قيّم/ي مستوى معرفتك الحالية بموضوع الإعاقة الذهنية.');
+      return false;
+    }
+    return true;
+  }
+
+  function validateStep11() {
+    clearError(11);
+    for (let i = 1; i <= 4; i++) {
+      const val = getCheckedValue('freq' + i);
+      if (val === null) {
+        setError(11, 'رجاءً حدّد/ي درجة واحدة لكل تعبير من التعابير الأربع.');
+        return false;
+      }
+    }
+    return true;
+  }
+
+function submitForm() {
+  if (!validateStep11()) return;
+
+  const data = {};
+  data.resp_id = 'R' + Date.now() + '_' + Math.floor(Math.random() * 1000000);
+  data.condition_label = conditionLabel;
+
+  const sw1 = document.getElementById('selfWord1').value.trim();
+  const sw2 = document.getElementById('selfWord2').value.trim();
+  const sw3 = document.getElementById('selfWord3').value.trim();
+  const se1 = document.getElementById('selfExpl1').value.trim();
+  const se2 = document.getElementById('selfExpl2').value.trim();
+  const se3 = document.getElementById('selfExpl3').value.trim();
+  const sr1 = parseInt(getCheckedValue('selfRank1'), 10);
+  const sr2 = parseInt(getCheckedValue('selfRank2'), 10);
+  const sr3 = parseInt(getCheckedValue('selfRank3'), 10);
+  const sv1 = parseInt(getCheckedValue('selfVal1'), 10);
+  const sv2 = parseInt(getCheckedValue('selfVal2'), 10);
+  const sv3 = parseInt(getCheckedValue('selfVal3'), 10);
+
+  data.self_w1_text = sw1;
+  data.self_w2_text = sw2;
+  data.self_w3_text = sw3;
+  data.self_w1_expl = se1;
+  data.self_w2_expl = se2;
+  data.self_w3_expl = se3;
+  data.self_w1_rank = sr1;
+  data.self_w2_rank = sr2;
+  data.self_w3_rank = sr3;
+  data.self_w1_valence = sv1;
+  data.self_w2_valence = sv2;
+  data.self_w3_valence = sv3;
+
+  const ow1 = document.getElementById('othersWord1').value.trim();
+  const ow2 = document.getElementById('othersWord2').value.trim();
+  const ow3 = document.getElementById('othersWord3').value.trim();
+  const oe1 = document.getElementById('othersExpl1').value.trim();
+  const oe2 = document.getElementById('othersExpl2').value.trim();
+  const oe3 = document.getElementById('othersExpl3').value.trim();
+  const or1 = parseInt(getCheckedValue('othersRank1'), 10);
+  const or2 = parseInt(getCheckedValue('othersRank2'), 10);
+  const or3 = parseInt(getCheckedValue('othersRank3'), 10);
+  const ov1 = parseInt(getCheckedValue('othersVal1'), 10);
+  const ov2 = parseInt(getCheckedValue('othersVal2'), 10);
+  const ov3 = parseInt(getCheckedValue('othersVal3'), 10);
+
+  data.others_w1_text = ow1;
+  data.others_w2_text = ow2;
+  data.others_w3_text = ow3;
+  data.others_w1_expl = oe1;
+  data.others_w2_expl = oe2;
+  data.others_w3_expl = oe3;
+  data.others_w1_rank = or1;
+  data.others_w2_rank = or2;
+  data.others_w3_rank = or3;
+  data.others_w1_valence = ov1;
+  data.others_w2_valence = ov2;
+  data.others_w3_valence = ov3;
+
+  for (let i = 1; i <= 7; i++) {
+    const val = getCheckedValue('sd' + i);
+    data['sd_item' + i] = parseInt(val, 10);
+  }
+
+  const age = parseInt(document.getElementById('age_years').value, 10);
+  const gender = parseInt(getCheckedValue('gender'), 10);
+  const major = document.getElementById('major_text').value.trim();
+  const study_level = parseInt(getCheckedValue('study_level'), 10);
+  const training_none = document.getElementById('training_none').checked ? 1 : 0;
+  const training_ID_only = document.getElementById('training_ID_only').checked ? 1 : 0;
+  const training_inclusion_only = document.getElementById('training_inclusion_only').checked ? 1 : 0;
+  const training_both = document.getElementById('training_both_ID_inclusion').checked ? 1 : 0;
+  const directExp = parseInt(getCheckedValue('direct_prof_exp_ID'), 10);
+  const rel = parseInt(getCheckedValue('relation_to_ID_person'), 10);
+  const know = parseInt(getCheckedValue('knowledge_ID_level'), 10);
+
+  data.age_years = age;
+  data.gender = gender;
+  data.major_text = major;
+  data.study_level = study_level;
+  data.training_none = training_none;
+  data.training_ID_only = training_ID_only;
+  data.training_inclusion_only = training_inclusion_only;
+  data.training_both_ID_inclusion = training_both;
+  data.direct_prof_exp_ID = directExp;
+  data.relation_to_ID_person = rel;
+  data.knowledge_ID_level = know;
+
+  data.freq_term_retarded = parseInt(getCheckedValue('freq1'), 10);
+  data.freq_term_disabled_ID = parseInt(getCheckedValue('freq2'), 10);
+  data.freq_term_person_with_ID = parseInt(getCheckedValue('freq3'), 10);
+  data.freq_term_in_situation_ID = parseInt(getCheckedValue('freq4'), 10);
+
+  console.log('FORM DATA:', data);
+
+  // ===== إرسال البيانات إلى Google Apps Script (الويب هوك) =====
+  const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzfNq27T1-00AIkyK1qFZ14bktaECZEDavr_B2ykwIi1Smo_rgdIrS4cr8Hrekt8zeLBQ/exec';
+
+  fetch(WEB_APP_URL, {
+    method: 'POST',
+    mode: 'no-cors', // نرسل فقط، ولا نحتاج قراءة الرد
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }).catch(err => {
+    console.error('Error sending data to Google Apps Script:', err);
+  });
+  // ===== نهاية جزء الإرسال =====
+
+  declined = false;
+  showStep(12);
+}
+
+</script>
+</body>
+</html>
