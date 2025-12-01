@@ -461,7 +461,7 @@
     <h2>7. ترتيب أهميّة الكلمات المتوقَّعة عند معظم الناس</h2>
     <p>
       <strong>رتّب هذه الكلمات/العبارات حسب أهميتها المتوقعة لدى معظم الناس</strong>
-      ولا يمكن استعمال كل رقم إلا مرة واحدة.
+      (ولا يمكن استعمال كل رقم إلا مرة واحدة).
     </p>
     <div class="table-wrapper">
       <table>
@@ -634,6 +634,19 @@
       </div>
     </div>
 
+    <!-- ترتيب جديد لسؤال المجموعة: مباشرة بعد المستوى الجامعي -->
+    <div class="field-group">
+      <label>إلى أي مجموعة تنتمي؟</label>
+      <div class="inline-options">
+        <label><input type="radio" name="group_membership" value="A"> a</label>
+        <label><input type="radio" name="group_membership" value="B"> b</label>
+        <label><input type="radio" name="group_membership" value="C"> c</label>
+        <label><input type="radio" name="group_membership" value="D"> d</label>
+        <label><input type="radio" name="group_membership" value="E"> e</label>
+        <label><input type="radio" name="group_membership" value="F"> f</label>
+      </div>
+    </div>
+
     <div class="field-group">
       <label>5. هل سبق لك أن تلقيت تكوينًا له صلة بالإعاقة الذهنية أو بالتربية الدامجة لتلاميذ في وضعيّة إعاقة ذهنية؟ (يمكن اختيار أكثر من جواب)</label>
       <div class="vertical-options">
@@ -651,13 +664,14 @@
       </div>
     </div>
 
+    <!-- سؤال 7 المعدّل: صلة بشخص ذي إعاقة ذهنية (checkboxes مع حصرية "لا") -->
     <div class="field-group">
-      <label>7. هل لك صلة بشخص ذي إعاقة ذهنية؟</label>
+      <label>7. هل لك صلة بشخص ذي إعاقة ذهنية؟ (يمكن اختيار أكثر من جواب)</label>
       <div class="vertical-options">
-        <label><input type="radio" name="relation_to_ID_person" value="0"> لا</label>
-        <label><input type="radio" name="relation_to_ID_person" value="1"> نعم، قريب من العائلة</label>
-        <label><input type="radio" name="relation_to_ID_person" value="2"> نعم، صديق</label>
-        <label><input type="radio" name="relation_to_ID_person" value="3"> نعم، لكن لا تربطني به علاقة صداقة أو قرابة</label>
+        <label><input type="checkbox" id="relation_none"> لا</label>
+        <label><input type="checkbox" id="relation_family"> نعم، قريب من العائلة</label>
+        <label><input type="checkbox" id="relation_friend"> نعم، صديق</label>
+        <label><input type="checkbox" id="relation_other"> نعم، لكن لا تربطني به علاقة صداقة أو قرابة</label>
       </div>
     </div>
 
@@ -669,18 +683,6 @@
         <label><input type="radio" name="knowledge_ID_level" value="3"> لديّ معرفة متوسطة (درستُ أو قرأتُ عنه بشكل محدود)</label>
         <label><input type="radio" name="knowledge_ID_level" value="4"> لديّ معرفة جيدة (قرأتُ أو درستُ الموضوع بشكل منهجي نسبيًا)</label>
         <label><input type="radio" name="knowledge_ID_level" value="5"> لديّ معرفة معمّقة (تكوين متخصص، قراءة معمقة، أو خبرة مهنية مباشرة في المجال)</label>
-      </div>
-    </div>
-
-    <div class="field-group">
-      <label>إلى أي مجموعة تنتمي؟</label>
-      <div class="inline-options">
-        <label><input type="radio" name="group_membership" value="A"> a</label>
-        <label><input type="radio" name="group_membership" value="B"> b</label>
-        <label><input type="radio" name="group_membership" value="C"> c</label>
-        <label><input type="radio" name="group_membership" value="D"> d</label>
-        <label><input type="radio" name="group_membership" value="E"> e</label>
-        <label><input type="radio" name="group_membership" value="F"> f</label>
       </div>
     </div>
 
@@ -1103,6 +1105,28 @@
         if (tNone) tNone.checked = false;
       }
     }
+
+    // حصرية خيار "لا" في سؤال الصلة بشخص ذي إعاقة ذهنية
+    if (e.target && e.target.id === 'relation_none') {
+      if (e.target.checked) {
+        ['relation_family', 'relation_friend', 'relation_other'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.checked = false;
+        });
+      }
+    }
+
+    if (
+      e.target &&
+      (e.target.id === 'relation_family' ||
+       e.target.id === 'relation_friend' ||
+       e.target.id === 'relation_other')
+    ) {
+      if (e.target.checked) {
+        const rNone = document.getElementById('relation_none');
+        if (rNone) rNone.checked = false;
+      }
+    }
   });
 
   function validateStep(step) {
@@ -1363,6 +1387,12 @@
       return false;
     }
 
+    const group = getCheckedValue('group_membership');
+    if (group === null) {
+      setError(10, 'رجاءً حدّد/ي المجموعة التي تنتمي إليها.');
+      return false;
+    }
+
     const training_none = document.getElementById('training_none').checked;
     const tID = document.getElementById('training_ID_only').checked;
     const tInc = document.getElementById('training_inclusion_only').checked;
@@ -1382,20 +1412,25 @@
       setError(10, 'رجاءً حدّد/ي هل لك تجربة مهنية مباشرة مع أشخاص ذوي إعاقة ذهنية أم لا.');
       return false;
     }
-    const rel = getCheckedValue('relation_to_ID_person');
-    if (rel === null) {
-      setError(10, 'رجاءً حدّد/ي نوع صلتك بشخص ذي إعاقة ذهنية (أو عدم وجود صلة).');
-      return false;
-    }
-    const know = getCheckedValue('knowledge_ID_level');
-    if (know === null) {
-      setError(10, 'رجاءً قيّم/ي مستوى معرفتك الحالية بموضوع الإعاقة الذهنية.');
+
+    const rNone = document.getElementById('relation_none').checked;
+    const rFam = document.getElementById('relation_family').checked;
+    const rFr = document.getElementById('relation_friend').checked;
+    const rO = document.getElementById('relation_other').checked;
+
+    if (!rNone && !rFam && !rFr && !rO) {
+      setError(10, 'رجاءً حدّد/ي إن كانت لك صلة بشخص ذي إعاقة ذهنية، واختَر/ي "لا" أو نوعًا واحدًا أو أكثر من أنواع الصلة.');
       return false;
     }
 
-    const group = getCheckedValue('group_membership');
-    if (group === null) {
-      setError(10, 'رجاءً حدّد/ي المجموعة التي تنتمي إليها.');
+    if (rNone && (rFam || rFr || rO)) {
+      setError(10, 'إذا اخترتَ "لا"، فلا يمكنك اختيار أنواع صلة أخرى في نفس الوقت.');
+      return false;
+    }
+
+    const know = getCheckedValue('knowledge_ID_level');
+    if (know === null) {
+      setError(10, 'رجاءً قيّم/ي مستوى معرفتك الحالية بموضوع الإعاقة الذهنية.');
       return false;
     }
 
@@ -1486,7 +1521,12 @@
     const training_ID_only = document.getElementById('training_ID_only').checked ? 1 : 0;
     const training_inclusion_only = document.getElementById('training_inclusion_only').checked ? 1 : 0;
     const directExp = parseInt(getCheckedValue('direct_prof_exp_ID'), 10);
-    const rel = parseInt(getCheckedValue('relation_to_ID_person'), 10);
+
+    const rNone = document.getElementById('relation_none').checked;
+    const rFam = document.getElementById('relation_family').checked;
+    const rFr = document.getElementById('relation_friend').checked;
+    const rO = document.getElementById('relation_other').checked;
+
     const know = parseInt(getCheckedValue('knowledge_ID_level'), 10);
     const group = getCheckedValue('group_membership');
 
@@ -1494,13 +1534,19 @@
     data.gender = gender;
     data.major_text = major;
     data.study_level = study_level;
+    data.group_membership = group;
     data.training_none = training_none;
     data.training_ID_only = training_ID_only;
     data.training_inclusion_only = training_inclusion_only;
     data.direct_prof_exp_ID = directExp;
-    data.relation_to_ID_person = rel;
+
+    // ترميز أنواع الصلة في حقول مستقلة (0/1)
+    data.relation_none = rNone ? 1 : 0;
+    data.relation_family = rFam ? 1 : 0;
+    data.relation_friend = rFr ? 1 : 0;
+    data.relation_other = rO ? 1 : 0;
+
     data.knowledge_ID_level = know;
-    data.group_membership = group;
 
     data.freq_term_retarded = parseInt(getCheckedValue('freq1'), 10);
     data.freq_term_disabled_ID = parseInt(getCheckedValue('freq2'), 10);
@@ -1515,4 +1561,3 @@
 </script>
 </body>
 </html>
-
