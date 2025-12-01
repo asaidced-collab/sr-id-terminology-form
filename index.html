@@ -231,6 +231,11 @@
       margin-top: 0;
       margin-bottom: 10px;
     }
+
+    /* تلوين عنوان السؤال الناقص */
+    .error-label {
+      color: var(--error);
+    }
   </style>
 </head>
 <body>
@@ -256,7 +261,7 @@
 
   <!-- STEP 1: كلمات المستجيب (Self - words) -->
   <div id="step-1" class="step">
-    <h2>1. تصوّراتك الشخصية</h2>
+    <h2 id="q1_title">1. تصوّراتك الشخصية</h2>
     <p>
       عندما تسمع/ين التعبير الآتي:
       «<span id="termSelf1" class="term-highlight"></span>»
@@ -280,7 +285,7 @@
 
   <!-- STEP 2: معاني المستجيب (Self - meanings) -->
   <div id="step-2" class="step">
-    <h2>2. توضيح معاني كلماتك</h2>
+    <h2 id="q2_title">2. توضيح معاني كلماتك</h2>
 
     <div class="field-group">
       <label>
@@ -314,7 +319,7 @@
 
   <!-- STEP 3: ترتيب الأهمية للمستجيب (Self - ranks) -->
   <div id="step-3" class="step">
-    <h2>3. ترتيب أهميّة كلماتك</h2>
+    <h2 id="q3_title">3. ترتيب أهميّة كلماتك</h2>
     <p>
       رجاءً <strong>رتّب/ي الكلمات/العبارات الثلاث بحسب أهميتها عندك شخصيًا</strong>.
       ضع/ي علامة على الرقم الذي يعبّر عن الأهمّيّة،
@@ -358,7 +363,7 @@
 
   <!-- STEP 4: شعور المستجيب (Self - valence) -->
   <div id="step-4" class="step">
-    <h2>4. الشعور نحو كلماتك</h2>
+    <h2 id="q4_title">4. الشعور نحو كلماتك</h2>
     <p>
       أمام كل كلمة/عبارة ذكرتَها، رجاءً
       <strong>حدّد/ي نوع الشعور الذي تثيره عندك</strong>
@@ -402,7 +407,7 @@
 
   <!-- STEP 5: كلمات معظم الناس (Others - words) -->
   <div id="step-5" class="step">
-    <h2>5. تصوّرات معظم الناس</h2>
+    <h2 id="q5_title">5. تصوّرات معظم الناس</h2>
     <p>
       في رأيك، ما الكلمات/العبارات الثلاث التي قد يستعملها معظم الناس مباشرة عند سماع التعبير:
       «<span id="termOthers1" class="term-highlight"></span>»؟
@@ -424,7 +429,7 @@
 
   <!-- STEP 6: معاني معظم الناس (Others - meanings) -->
   <div id="step-6" class="step">
-    <h2>6. معاني تصورات الناس</h2>
+    <h2 id="q6_title">6. معاني تصورات الناس</h2>
 
     <div class="field-group">
       <label>
@@ -458,7 +463,7 @@
 
   <!-- STEP 7: ترتيب الأهمية عند معظم الناس (Others - ranks) -->
   <div id="step-7" class="step">
-    <h2>7. ترتيب أهميّة الكلمات المتوقَّعة عند معظم الناس</h2>
+    <h2 id="q7_title">7. ترتيب أهميّة الكلمات المتوقَّعة عند معظم الناس</h2>
     <p>
       <strong>رتّب هذه الكلمات/العبارات حسب أهميتها المتوقعة لدى معظم الناس</strong>
       (ولا يمكن استعمال كل رقم إلا مرة واحدة).
@@ -500,7 +505,7 @@
 
   <!-- STEP 8: الشعور المتوقّع عند معظم الناس (Others - valence) -->
   <div id="step-8" class="step">
-    <h2>8. الشعور المتوقَّع عند معظم الناس</h2>
+    <h2 id="q8_title">8. الشعور المتوقَّع عند معظم الناس</h2>
     <p>
       ما الشعور الذي <strong>تتوقّع أن يحسّه معظم الناس</strong> نحو كل كلمة/عبارة (إيجابي، محايد، سلبي)؟
     </p>
@@ -541,7 +546,7 @@
 
   <!-- STEP 9: مقياس المسافة الاجتماعية -->
   <div id="step-9" class="step">
-    <p>
+    <p id="q9_text">
       في العبارات الآتية نتحدّث عن
       «<span id="termSD" class="term-highlight"></span>».
       نرجو أن تعبّر/ي عن <strong>مدى قبولك لكل وضعية من هذه الوضعيات</strong>.
@@ -605,12 +610,12 @@
   <!-- STEP 10: ديموغرافيا + تجربة -->
   <div id="step-10" class="step">
     <div class="field-group">
-      <label>1. العمر (بالأرقام، بالسنوات):</label>
+      <label id="q10_age_label">1. العمر (بالأرقام، بالسنوات):</label>
       <input type="number" id="age_years" min="18" max="26" />
     </div>
 
     <div class="field-group">
-      <label>2. الجنس:</label>
+      <label id="q10_gender_label">2. الجنس:</label>
       <div class="inline-options">
         <label><input type="radio" name="gender" value="1"> ذكر</label>
         <label><input type="radio" name="gender" value="2"> أنثى</label>
@@ -618,12 +623,12 @@
     </div>
 
     <div class="field-group">
-      <label>3. التخصص الجامعي:</label>
+      <label id="q10_major_label">3. التخصص الجامعي:</label>
       <input type="text" id="major_text" />
     </div>
 
     <div class="field-group">
-      <label>4. المستوى الجامعي الحالي (ضع/ي علامة أمام مستوى تسجيلك الحالي):</label>
+      <label id="q10_level_label">4. المستوى الجامعي الحالي (ضع/ي علامة أمام مستوى تسجيلك الحالي):</label>
       <div class="inline-options">
         <label><input type="radio" name="study_level" value="1"> S1</label>
         <label><input type="radio" name="study_level" value="2"> S2</label>
@@ -636,7 +641,7 @@
 
     <!-- ترتيب جديد لسؤال المجموعة: مباشرة بعد المستوى الجامعي -->
     <div class="field-group">
-      <label>إلى أي مجموعة تنتمي؟</label>
+      <label id="q10_group_label">إلى أي مجموعة تنتمي؟</label>
       <div class="inline-options">
         <label><input type="radio" name="group_membership" value="A"> a</label>
         <label><input type="radio" name="group_membership" value="B"> b</label>
@@ -648,7 +653,7 @@
     </div>
 
     <div class="field-group">
-      <label>5. هل سبق لك أن تلقيت تكوينًا له صلة بالإعاقة الذهنية أو بالتربية الدامجة لتلاميذ في وضعيّة إعاقة ذهنية؟ (يمكن اختيار أكثر من جواب)</label>
+      <label id="q10_training_label">5. هل سبق لك أن تلقيت تكوينًا له صلة بالإعاقة الذهنية أو بالتربية الدامجة لتلاميذ في وضعيّة إعاقة ذهنية؟ (يمكن اختيار أكثر من جواب)</label>
       <div class="vertical-options">
         <label><input type="checkbox" id="training_none"> لا، لم أتلقَّ أي تكوين في هذا المجال</label>
         <label><input type="checkbox" id="training_ID_only"> نعم، تكوين حول الإعاقة الذهنية عمومًا</label>
@@ -657,7 +662,7 @@
     </div>
 
     <div class="field-group">
-      <label>6. هل لك تجربة مهنية مباشرة (مثل تدريس، تأطير، تقديم خدمة...) مع أشخاص ذوي إعاقة ذهنية؟</label>
+      <label id="q10_direct_label">6. هل لك تجربة مهنية مباشرة (مثل تدريس، تأطير، تقديم خدمة...) مع أشخاص ذوي إعاقة ذهنية؟</label>
       <div class="inline-options">
         <label><input type="radio" name="direct_prof_exp_ID" value="0"> لا</label>
         <label><input type="radio" name="direct_prof_exp_ID" value="1"> نعم</label>
@@ -666,7 +671,7 @@
 
     <!-- سؤال 7 المعدّل: صلة بشخص ذي إعاقة ذهنية (checkboxes مع حصرية "لا") -->
     <div class="field-group">
-      <label>7. هل لك صلة بشخص ذي إعاقة ذهنية؟ (يمكن اختيار أكثر من جواب)</label>
+      <label id="q10_relation_label">7. هل لك صلة بشخص ذي إعاقة ذهنية؟ (يمكن اختيار أكثر من جواب)</label>
       <div class="vertical-options">
         <label><input type="checkbox" id="relation_none"> لا</label>
         <label><input type="checkbox" id="relation_family"> نعم، قريب من العائلة</label>
@@ -676,7 +681,7 @@
     </div>
 
     <div class="field-group">
-      <label>8. كيف تصف/ين مستوى معرفتك الحالية بموضوع الإعاقة الذهنية؟</label>
+      <label id="q10_knowledge_label">8. كيف تصف/ين مستوى معرفتك الحالية بموضوع الإعاقة الذهنية؟</label>
       <div class="vertical-options">
         <label><input type="radio" name="knowledge_ID_level" value="1"> لا أملك تقريبًا أي معرفة بهذا الموضوع</label>
         <label><input type="radio" name="knowledge_ID_level" value="2"> لديّ معرفة بسيطة / سطحية (بعض المعلومات العامة)</label>
@@ -691,7 +696,7 @@
 
   <!-- STEP 11: تواتر الألفاظ الأربع -->
   <div id="step-11" class="step">
-    <p>
+    <p id="q11_text">
       9. في حياتك اليومية، أو خلال دراستك الجامعية، إلى أي حدّ تسمع أو تستعمل التعابير الآتية؟
     </p>
     <div class="table-wrapper">
@@ -979,6 +984,19 @@
     setError(step, '');
   }
 
+  function clearQuestionErrors() {
+    document.querySelectorAll('.error-label').forEach(el => {
+      el.classList.remove('error-label');
+    });
+  }
+
+  function markQuestionError(id) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.classList.add('error-label');
+    }
+  }
+
   function isEmpty(str) {
     return !str || str.trim() === '';
   }
@@ -1149,6 +1167,7 @@
 
   function validateStep1() {
     clearError(1);
+    clearQuestionErrors();
     const w1 = document.getElementById('selfWord1').value.trim();
     const w2 = document.getElementById('selfWord2').value.trim();
     const w3 = document.getElementById('selfWord3').value.trim();
@@ -1158,30 +1177,36 @@
       const wi = words[i];
       if (isEmpty(wi)) {
         setError(1, 'رجاءً اكتب/ي ثلاث كلمات أو عبارات؛ لا تترك أي خانة فارغة.');
+        markQuestionError('q1_title');
         return false;
       }
       const noSpaces = wi.replace(/\s+/g, '');
       if (noSpaces.length === 1) {
         setError(1, 'رجاءً اكتب/ي كلمة أو عبارة حقيقية، وليس حرفًا واحدًا فقط.');
+        markQuestionError('q1_title');
         return false;
       }
       if (containsDigits(wi)) {
         setError(1, 'رجاءً لا تستعمل/ي الأرقام كإجابة في هذه الخانات.');
+        markQuestionError('q1_title');
         return false;
       }
       const wc = countWords(wi);
       if (wc > 5) {
         setError(1, 'رجاءً لا تتجاوز 5 كلمات في كل خانة.');
+        markQuestionError('q1_title');
         return false;
       }
       if (looksLikeSeparatedLetters(wi)) {
         setError(1, 'الرجاء كتابة كلمة أو عبارة حقيقية، وليس حروفًا منفصلة.');
+        markQuestionError('q1_title');
         return false;
       }
     }
     const lowerSet = new Set(words.map(w => w.toLowerCase()));
     if (lowerSet.size < 3) {
       setError(1, 'رجاءً لا تكرّر/ي نفس الكلمة أو العبارة في أكثر من خانة.');
+      markQuestionError('q1_title');
       return false;
     }
     return true;
@@ -1189,6 +1214,7 @@
 
   function validateStep2() {
     clearError(2);
+    clearQuestionErrors();
     const e1 = document.getElementById('selfExpl1').value.trim();
     const e2 = document.getElementById('selfExpl2').value.trim();
     const e3 = document.getElementById('selfExpl3').value.trim();
@@ -1198,21 +1224,25 @@
       const ei = expls[i];
       if (isEmpty(ei)) {
         setError(2, 'رجاءً اكتب/ي جملة قصيرة تشرح علاقة كل كلمة بالتعبير المستعمَل؛ لا تترك أي خانة فارغة.');
+        markQuestionError('q2_title');
         return false;
       }
       if (containsDigits(ei)) {
         setError(2, 'رجاءً لا تستعمل/ي الأرقام وحدها كإجابة في الشرح.');
+        markQuestionError('q2_title');
         return false;
       }
       const wc = countWords(ei);
       if (wc > 8) {
         setError(2, 'رجاءً لا تتجاوز 8 كلمات في شرح كل كلمة/عبارة.');
+        markQuestionError('q2_title');
         return false;
       }
     }
     const lowerSet = new Set(expls.map(e => e.toLowerCase()));
     if (lowerSet.size < 3) {
       setError(2, 'رجاءً لا تكرّر/ي نفس الجملة حرفيًا في الخانات الثلاث.');
+      markQuestionError('q2_title');
       return false;
     }
     return true;
@@ -1220,18 +1250,21 @@
 
   function validateStep3() {
     clearError(3);
+    clearQuestionErrors();
     const r1 = getCheckedValue('selfRank1');
     const r2 = getCheckedValue('selfRank2');
     const r3 = getCheckedValue('selfRank3');
 
     if (!r1 || !r2 || !r3) {
       setError(3, 'رجاءً اختر/ي رتبة لكل كلمة/عبارة (1 أو 2 أو 3).');
+      markQuestionError('q3_title');
       return false;
     }
     const vals = [r1, r2, r3];
     const setVals = new Set(vals);
     if (setVals.size < 3) {
       setError(3, 'لا يمكن تكرار نفس الرقم؛ يجب أن تستعمل/ي 1 و2 و3 مرة واحدة لكل كلمة.');
+      markQuestionError('q3_title');
       return false;
     }
     return true;
@@ -1239,11 +1272,13 @@
 
   function validateStep4() {
     clearError(4);
+    clearQuestionErrors();
     const v1 = getCheckedValue('selfVal1');
     const v2 = getCheckedValue('selfVal2');
     const v3 = getCheckedValue('selfVal3');
     if (v1 === null || v2 === null || v3 === null) {
       setError(4, 'رجاءً حدّد/ي نوع الشعور لكل كلمة/عبارة (إيجابي/محايد/سلبي).');
+      markQuestionError('q4_title');
       return false;
     }
     return true;
@@ -1251,6 +1286,7 @@
 
   function validateStep5() {
     clearError(5);
+    clearQuestionErrors();
     const w1 = document.getElementById('othersWord1').value.trim();
     const w2 = document.getElementById('othersWord2').value.trim();
     const w3 = document.getElementById('othersWord3').value.trim();
@@ -1260,30 +1296,36 @@
       const wi = words[i];
       if (isEmpty(wi)) {
         setError(5, 'رجاءً اكتب/ي ثلاث كلمات أو عبارات متوقَّعة عند معظم الناس؛ لا تترك أي خانة فارغة.');
+        markQuestionError('q5_title');
         return false;
       }
       const noSpaces = wi.replace(/\s+/g, '');
       if (noSpaces.length === 1) {
         setError(5, 'رجاءً اكتب/ي كلمة أو عبارة حقيقية، وليس حرفًا واحدًا فقط.');
+        markQuestionError('q5_title');
         return false;
       }
       if (containsDigits(wi)) {
         setError(5, 'رجاءً لا تستعمل/ي الأرقام كإجابة في هذه الخانات.');
+        markQuestionError('q5_title');
         return false;
       }
       const wc = countWords(wi);
       if (wc > 5) {
         setError(5, 'رجاءً لا تتجاوز 5 كلمات في كل خانة.');
+        markQuestionError('q5_title');
         return false;
       }
       if (looksLikeSeparatedLetters(wi)) {
         setError(5, 'الرجاء كتابة كلمة أو عبارة حقيقية، وليس حروفًا منفصلة.');
+        markQuestionError('q5_title');
         return false;
       }
     }
     const lowerSet = new Set(words.map(w => w.toLowerCase()));
     if (lowerSet.size < 3) {
       setError(5, 'رجاءً لا تكرّر/ي نفس الكلمة أو العبارة في أكثر من خانة.');
+      markQuestionError('q5_title');
       return false;
     }
     return true;
@@ -1291,6 +1333,7 @@
 
   function validateStep6() {
     clearError(6);
+    clearQuestionErrors();
     const e1 = document.getElementById('othersExpl1').value.trim();
     const e2 = document.getElementById('othersExpl2').value.trim();
     const e3 = document.getElementById('othersExpl3').value.trim();
@@ -1300,21 +1343,25 @@
       const ei = expls[i];
       if (isEmpty(ei)) {
         setError(6, 'رجاءً اكتب/ي جملة قصيرة تشرح علاقة كل كلمة متوقَّعة بالتعبير المستعمَل؛ لا تترك أي خانة فارغة.');
+        markQuestionError('q6_title');
         return false;
       }
       if (containsDigits(ei)) {
         setError(6, 'رجاءً لا تستعمل/ي الأرقام وحدها كإجابة في الشرح.');
+        markQuestionError('q6_title');
         return false;
       }
       const wc = countWords(ei);
       if (wc > 8) {
         setError(6, 'رجاءً لا تتجاوز 8 كلمات في شرح كل كلمة/عبارة.');
+        markQuestionError('q6_title');
         return false;
       }
     }
     const lowerSet = new Set(expls.map(e => e.toLowerCase()));
     if (lowerSet.size < 3) {
       setError(6, 'رجاءً لا تكرّر/ي نفس الجملة حرفيًا في الخانات الثلاث.');
+      markQuestionError('q6_title');
       return false;
     }
     return true;
@@ -1322,18 +1369,21 @@
 
   function validateStep7() {
     clearError(7);
+    clearQuestionErrors();
     const r1 = getCheckedValue('othersRank1');
     const r2 = getCheckedValue('othersRank2');
     const r3 = getCheckedValue('othersRank3');
 
     if (!r1 || !r2 || !r3) {
       setError(7, 'رجاءً اختر/ي رتبة لكل كلمة/عبارة متوقَّعة (1 أو 2 أو 3).');
+      markQuestionError('q7_title');
       return false;
     }
     const vals = [r1, r2, r3];
     const setVals = new Set(vals);
     if (setVals.size < 3) {
       setError(7, 'لا يمكن تكرار نفس الرقم؛ يجب أن تستعمل/ي 1 و2 و3 مرة واحدة لكل كلمة.');
+      markQuestionError('q7_title');
       return false;
     }
     return true;
@@ -1341,11 +1391,13 @@
 
   function validateStep8() {
     clearError(8);
+    clearQuestionErrors();
     const v1 = getCheckedValue('othersVal1');
     const v2 = getCheckedValue('othersVal2');
     const v3 = getCheckedValue('othersVal3');
     if (v1 === null || v2 === null || v3 === null) {
       setError(8, 'رجاءً حدّد/ي الشعور المتوقَّع عند معظم الناس نحو كل كلمة/عبارة.');
+      markQuestionError('q8_title');
       return false;
     }
     return true;
@@ -1353,10 +1405,12 @@
 
   function validateStep9() {
     clearError(9);
+    clearQuestionErrors();
     for (let i = 1; i <= 7; i++) {
       const val = getCheckedValue('sd' + i);
       if (val === null) {
         setError(9, 'رجاءً أجب/ي بنعم أو لا على جميع العبارات.');
+        markQuestionError('q9_text');
         return false;
       }
     }
@@ -1365,31 +1419,37 @@
 
   function validateStep10() {
     clearError(10);
+    clearQuestionErrors();
     const ageEl = document.getElementById('age_years');
     const age = ageEl ? parseInt(ageEl.value, 10) : NaN;
     if (!age || age < 18 || age > 26) {
       setError(10, 'رجاءً أدخل/ي عمرًا بين 18 و26 سنة، ثم تحقّق/ي من صحة الرقم.');
+      markQuestionError('q10_age_label');
       return false;
     }
     const gender = getCheckedValue('gender');
     if (gender === null) {
       setError(10, 'رجاءً اختر/ي الجنس.');
+      markQuestionError('q10_gender_label');
       return false;
     }
     const major = document.getElementById('major_text').value.trim();
     if (isEmpty(major)) {
       setError(10, 'رجاءً اكتب/ي تخصصك الجامعي.');
+      markQuestionError('q10_major_label');
       return false;
     }
     const level = getCheckedValue('study_level');
     if (level === null) {
       setError(10, 'رجاءً حدّد/ي مستواك الجامعي الحالي.');
+      markQuestionError('q10_level_label');
       return false;
     }
 
     const group = getCheckedValue('group_membership');
     if (group === null) {
       setError(10, 'رجاءً حدّد/ي المجموعة التي تنتمي إليها.');
+      markQuestionError('q10_group_label');
       return false;
     }
 
@@ -1399,17 +1459,20 @@
 
     if (!training_none && !tID && !tInc) {
       setError(10, 'رجاءً حدّد/ي على الأقل خيارًا واحدًا في التكوين (أو لا تكوين).');
+      markQuestionError('q10_training_label');
       return false;
     }
 
     if (training_none && (tID || tInc)) {
       setError(10, 'إذا اخترتَ "لا، لم أتلقَّ أي تكوين في هذا المجال"، فلا يمكنك اختيار خيارات أخرى للتكوين.');
+      markQuestionError('q10_training_label');
       return false;
     }
 
     const directExp = getCheckedValue('direct_prof_exp_ID');
     if (directExp === null) {
       setError(10, 'رجاءً حدّد/ي هل لك تجربة مهنية مباشرة مع أشخاص ذوي إعاقة ذهنية أم لا.');
+      markQuestionError('q10_direct_label');
       return false;
     }
 
@@ -1420,17 +1483,20 @@
 
     if (!rNone && !rFam && !rFr && !rO) {
       setError(10, 'رجاءً حدّد/ي إن كانت لك صلة بشخص ذي إعاقة ذهنية، واختَر/ي "لا" أو نوعًا واحدًا أو أكثر من أنواع الصلة.');
+      markQuestionError('q10_relation_label');
       return false;
     }
 
     if (rNone && (rFam || rFr || rO)) {
       setError(10, 'إذا اخترتَ "لا"، فلا يمكنك اختيار أنواع صلة أخرى في نفس الوقت.');
+      markQuestionError('q10_relation_label');
       return false;
     }
 
     const know = getCheckedValue('knowledge_ID_level');
     if (know === null) {
       setError(10, 'رجاءً قيّم/ي مستوى معرفتك الحالية بموضوع الإعاقة الذهنية.');
+      markQuestionError('q10_knowledge_label');
       return false;
     }
 
@@ -1439,10 +1505,12 @@
 
   function validateStep11() {
     clearError(11);
+    clearQuestionErrors();
     for (let i = 1; i <= 4; i++) {
       const val = getCheckedValue('freq' + i);
       if (val === null) {
         setError(11, 'رجاءً حدّد/ي درجة واحدة لكل تعبير من التعابير الأربع.');
+        markQuestionError('q11_text');
         return false;
       }
     }
@@ -1540,7 +1608,6 @@
     data.training_inclusion_only = training_inclusion_only;
     data.direct_prof_exp_ID = directExp;
 
-    // ترميز أنواع الصلة في حقول مستقلة (0/1)
     data.relation_none = rNone ? 1 : 0;
     data.relation_family = rFam ? 1 : 0;
     data.relation_friend = rFr ? 1 : 0;
